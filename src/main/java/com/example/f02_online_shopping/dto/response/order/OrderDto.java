@@ -1,8 +1,13 @@
 package com.example.f02_online_shopping.dto.response.order;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.math.BigDecimal;
 import java.util.List;
 
+@Getter
+@Setter
 public class OrderDto {
     private Integer id;
     private String status;
