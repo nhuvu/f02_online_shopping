@@ -1,6 +1,6 @@
 package com.example.f02_online_shopping.service.impl;
 
-import com.example.f02_online_shopping.dto.request.UserCreationRequestDto;
+import com.example.f02_online_shopping.dto.request.user.UserFindRequestDto;
 import com.example.f02_online_shopping.service.UserValidatorService;
 import org.springframework.stereotype.Service;
 
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 public class UserValidatorServiceImpl implements UserValidatorService {
 
     @Override
-    public Object validateCreateUserRequest(UserCreationRequestDto dto) {
+    public Object validateCreateUserRequest(UserFindRequestDto dto) {
         if(dto.getUsername() == null ){
             return "Username is required";
         }

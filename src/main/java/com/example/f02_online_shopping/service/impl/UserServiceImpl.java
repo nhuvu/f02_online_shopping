@@ -1,7 +1,7 @@
 package com.example.f02_online_shopping.service.impl;
 
-import com.example.f02_online_shopping.dto.request.UserCreationRequestDto;
-import com.example.f02_online_shopping.dto.response.UserCreationResponseDto;
+import com.example.f02_online_shopping.dto.request.user.UserFindRequestDto;
+import com.example.f02_online_shopping.dto.response.user.UserDto;
 import com.example.f02_online_shopping.model.User;
 import com.example.f02_online_shopping.service.UserService;
 import com.example.f02_online_shopping.service.UserValidatorService;
@@ -14,14 +14,14 @@ public class UserServiceImpl implements UserService {
     UserValidatorService userValidatorService;
     @Override
     public void checkUserValidity(User user) {
-        //TODO: CEHCK USER VALID
+        //TODO: CHECK USER VALIDITY
     }
 
     @Override
-    public UserCreationResponseDto createUser(UserCreationRequestDto userCreationRequestDto) {
+    public UserDto registerUser(UserFindRequestDto userCreationRequestDto) {
         Object error = userValidatorService.validateCreateUserRequest(userCreationRequestDto);
         if (error != null) {
-            UserCreationResponseDto responseDto = new UserCreationResponseDto();
+            UserDto responseDto = new UserDto();
             responseDto.setError(error);
             return responseDto;
         }
