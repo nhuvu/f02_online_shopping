@@ -1,6 +1,7 @@
 package com.example.f02_online_shopping.service.impl;
 
 import com.example.f02_online_shopping.dto.request.user.UserFindRequestDto;
+import com.example.f02_online_shopping.dto.request.user.UserRegisterRequestDto;
 import com.example.f02_online_shopping.service.UserValidatorService;
 import org.springframework.stereotype.Service;
 
@@ -8,11 +9,11 @@ import org.springframework.stereotype.Service;
 public class UserValidatorServiceImpl implements UserValidatorService {
 
     @Override
-    public Object validateCreateUserRequest(UserFindRequestDto dto) {
-        if(dto.getUsername() == null ){
+    public Object validateCreateUserRequest(UserRegisterRequestDto dto) {
+        if(dto.getFullName() == null ){
             return "Username is required";
         }
-        if(dto.getUsername().length() < 25 ){
+        if(dto.getFullName().length() < 25 ){
             return "Username is too long";
         }
         if(dto.getPassword() == null ){

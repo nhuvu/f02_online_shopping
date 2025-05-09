@@ -1,5 +1,6 @@
 package com.example.f02_online_shopping.service.impl;
 
+import com.example.f02_online_shopping.dto.response.cart.CartDto;
 import com.example.f02_online_shopping.model.User;
 import com.example.f02_online_shopping.service.CartService;
 import com.example.f02_online_shopping.service.UserService;
@@ -15,8 +16,8 @@ public class CartServiceImpl implements CartService {
     UserService userService;
 
     @Override
-    public List<Object> viewCart(User user) {
-        userService.checkUserValidity(user);
+    public CartDto viewCart(Integer userId) {
+        userService.checkUserValidity(userId);
         return List.of();
     }
 }

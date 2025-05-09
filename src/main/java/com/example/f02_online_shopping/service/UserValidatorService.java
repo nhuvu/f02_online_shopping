@@ -1,7 +1,8 @@
 package com.example.f02_online_shopping.service;
 
 import com.example.f02_online_shopping.dto.request.user.UserFindRequestDto;
+import com.example.f02_online_shopping.dto.request.user.UserRegisterRequestDto;
 
 public interface UserValidatorService {
-    Object validateCreateUserRequest(UserFindRequestDto dto);
+    Object validateCreateUserRequest(UserRegisterRequestDto dto);
 }
