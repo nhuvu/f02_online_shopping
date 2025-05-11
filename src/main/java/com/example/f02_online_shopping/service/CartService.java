@@ -1,9 +1,9 @@
 package com.example.f02_online_shopping.service;
 
-import com.example.f02_online_shopping.model.User;
+import com.example.f02_online_shopping.model.UserModel;
 
 import java.util.List;
 
 public interface CartService {
-    List<Object> viewCart(User user);
+    List<Object> viewCart(UserModel user);
 }
