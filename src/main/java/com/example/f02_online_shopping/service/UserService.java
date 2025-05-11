@@ -3,7 +3,6 @@ package com.example.f02_online_shopping.service;
 import com.example.f02_online_shopping.dto.request.user.UserLoginRequestDto;
 import com.example.f02_online_shopping.dto.request.user.UserRegisterRequestDto;
 import com.example.f02_online_shopping.dto.response.user.UserDto;
-import com.example.f02_online_shopping.model.User;
 
 public interface UserService {
     void checkUserValidity(Integer id);
@@ -12,5 +11,5 @@ public interface UserService {
     //2. Old user login (email, password)
     UserDto login(UserLoginRequestDto request);
 
-
+    UserDto getUserByid(Integer id);
 }

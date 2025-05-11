@@ -1,11 +1,10 @@
 package com.example.f02_online_shopping.service.impl;
 
-import com.example.f02_online_shopping.dto.request.UserCreationRequestDto;
-import com.example.f02_online_shopping.dto.response.UserCreationResponseDto;
-import com.example.f02_online_shopping.dto.response.UserDetailResponseDto;
+import com.example.f02_online_shopping.dto.request.user.UserLoginRequestDto;
+import com.example.f02_online_shopping.dto.request.user.UserRegisterRequestDto;
+import com.example.f02_online_shopping.dto.response.user.UserDto;
 import com.example.f02_online_shopping.entity.Order;
 import com.example.f02_online_shopping.entity.User;
-import com.example.f02_online_shopping.model.UserModel;
 import com.example.f02_online_shopping.repository.UserRepository;
 import com.example.f02_online_shopping.service.UserService;
 import com.example.f02_online_shopping.service.UserValidatorService;
@@ -25,44 +24,50 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Override
-    public void checkUserValidity(UserModel user) {
-        //TODO: CHECK USER VALID
-    }
-
-    @Override
-    public UserCreationResponseDto createUser(UserCreationRequestDto request) {
+    public UserDto registerUser(UserRegisterRequestDto request) {
         //Validate user
         Object error = userValidatorService.validateCreateUserRequest(request);
         if (error != null) {
-            UserCreationResponseDto response = new UserCreationResponseDto();
+            UserDto response = new UserDto();
             response.setError(error);
             return response;
         }
-        User userExist = userRepository.findByFullname(request.getUsername());
+        User userExist = userRepository.findByFullname(request.getFullName());
         if(userExist != null){
-            UserCreationResponseDto res = new UserCreationResponseDto();
+            UserDto res = new UserDto();
             res.setError("User already exists");
             return res;
         }
 
         //Create user
         User userCreate = new User();
-        userCreate.setFullname(request.getUsername());
+        userCreate.setFullname(request.getFullName());
         userCreate.setPassword(request.getPassword());
         userCreate.setEmail(request.getEmail());
-        userCreate.setRole(request.getRole());
-        userCreate.setStatus(request.getStatus());
+        userCreate.setRole("USER");
+        userCreate.setStatus("ACTIVE");
         userRepository.save(userCreate);
 
         //Return response
-        UserCreationResponseDto response = new UserCreationResponseDto();
-        response.setUsername(request.getUsername());
+        UserDto response = new UserDto();
+        response.setFullName(request.getFullName());
         response.setEmail(request.getEmail());
         return response;
     }
 
     @Override
-    public UserDetailResponseDto getUserByid(Integer id) {
+    public void checkUserValidity(Integer id) {
+
+    }
+
+
+    @Override
+    public UserDto login(UserLoginRequestDto request) {
+        return null;
+    }
+
+    @Override
+    public UserDto getUserByid(Integer id) {
         //validate id
         if(id == null){
             return null;
@@ -82,11 +87,12 @@ public class UserServiceImpl implements UserService {
         for(Order order : userDetail.getOrders()){
             orderDetails.add("Order id: " + order.getId() + "; status: " + order.getStatus() + "; total amount: " + order.getTotal_amount());
         }
-        return new UserDetailResponseDto(userDetail.getEmail(),
-                                            userDetail.getId(),
-                                            userDetail.getStatus(),
-                                            userDetail.getRole(),
-                                            userDetail.getCart().getId(),
-                                            orderDetails);
+        return new UserDto(userDetail.getId(),
+                            userDetail.getFullname(),
+                            userDetail.getEmail(),
+                            userDetail.getStatus(),
+                            userDetail.getRole(),
+                            userDetail.getCart().getId(),
+                            orderDetails);
     }
 }

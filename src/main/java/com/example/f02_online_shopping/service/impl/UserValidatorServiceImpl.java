@@ -1,6 +1,5 @@
 package com.example.f02_online_shopping.service.impl;
 
-import com.example.f02_online_shopping.dto.request.user.UserFindRequestDto;
 import com.example.f02_online_shopping.dto.request.user.UserRegisterRequestDto;
 import com.example.f02_online_shopping.service.UserValidatorService;
 import org.springframework.stereotype.Service;
