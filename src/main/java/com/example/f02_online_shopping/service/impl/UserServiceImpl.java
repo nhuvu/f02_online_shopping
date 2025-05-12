@@ -3,7 +3,6 @@ package com.example.f02_online_shopping.service.impl;
 import com.example.f02_online_shopping.dto.request.user.UserLoginRequestDto;
 import com.example.f02_online_shopping.dto.request.user.UserRegisterRequestDto;
 import com.example.f02_online_shopping.dto.request.user.UserUpdateRequestDto;
-import com.example.f02_online_shopping.dto.response.UserDetailResponseDto;
 import com.example.f02_online_shopping.dto.response.user.UserDto;
 import com.example.f02_online_shopping.entity.Order;
 import com.example.f02_online_shopping.entity.User;
