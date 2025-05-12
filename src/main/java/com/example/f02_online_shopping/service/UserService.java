@@ -2,6 +2,7 @@ package com.example.f02_online_shopping.service;
 
 import com.example.f02_online_shopping.dto.request.user.UserLoginRequestDto;
 import com.example.f02_online_shopping.dto.request.user.UserRegisterRequestDto;
+import com.example.f02_online_shopping.dto.request.user.UserUpdateRequestDto;
 import com.example.f02_online_shopping.dto.response.user.UserDto;
 
 public interface UserService {
@@ -11,5 +12,7 @@ public interface UserService {
     //2. Old user login (email, password)
     UserDto login(UserLoginRequestDto request);
 
-    UserDto getUserByid(Integer id);
+    UserDto getUserById(Integer id);
+
+    UserDto updateUser(UserUpdateRequestDto request);
 }

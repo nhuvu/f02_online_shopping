@@ -20,6 +20,7 @@ public class UrlConstant {
     public static final String API_V1_USER_GET_ALL = "api/v1/users";
     public static final String API_V1_USER_FIND_BY_ID = "api/v1/users/{userId}";
     public static final String API_V1_USER_BLOCK = "api/v1/users/block/{userId}";
+    public static final String API_V1_USER_UPDATE = "api/v1/users/update/{userId}";
     public static final String API_V1_PRODUCT_ADD = "api/v1/products/add";
     public static final String API_V1_PRODUCT_UPDATE = "api/v1/products/update";
     public static final String API_V1_PRODUCT_DELETE = "api/v1/products/delete";

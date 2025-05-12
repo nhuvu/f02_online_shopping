@@ -15,8 +15,8 @@ public class CartServiceImpl implements CartService {
     UserService userService;
 
     @Override
-    public List<Object> viewCart(UserModel user) {
-        userService.checkUserValidity(user);
+    public List<Object> viewCart(Integer userId) {
+        userService.checkUserValidity(userId);
         return List.of();
     }
 }

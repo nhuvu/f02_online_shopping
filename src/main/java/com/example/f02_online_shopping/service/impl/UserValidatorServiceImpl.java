@@ -12,7 +12,7 @@ public class UserValidatorServiceImpl implements UserValidatorService {
         if(dto.getFullName() == null ){
             return "Username is required";
         }
-        if(dto.getFullName().length() < 25 ){
+        if(dto.getFullName().length() > 25 ){
             return "Username is too long";
         }
         if(dto.getPassword() == null ){
