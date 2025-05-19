@@ -1,31 +1,49 @@
 package com.example.f02_online_shopping.constant;
 
 public class UrlConstant {
-    //User biz function
-    public static final String API_V1_USER_REGISTER = "api/v1/users/register";
-    public static final String API_V1_USER_LOGIN = "api/v1/users/login";
-    public static final String API_V1_PRODUCT_GET_IN_STOCK = "api/v1/products/in-stock";
-    public static final String API_V1_CART_GET_BY_USER = "api/v1/carts/user/{userId}";
-    public static final String API_V1_CART_ADD_PRODUCT = "api/v1/carts/product/add/{productId}";
-    public static final String API_V1_CART_DELETE_PRODUCT = "api/v1/carts/product/delete/{productId}";
-    public static final String API_V1_ORDER_GET_BY_USER = "api/v1/orders/user/{userId}";
-    public static final String API_V1_ORDER_PLACE= "api/v1/orders/add";
-    public static final String API_V1_ORDER_FIND_BY_ID = "api/v1/orders/{orderId}";
-    public static final String API_V1_ORDER_HISTORY = "api/v1/orders/history";
-    public static final String API_V1_ORDER_UPDATE = "api/v1/orders/update";
-    public static final String API_V1_ORDER_CANCEL = "api/v1/orders/cancel";
+    //Base and General Path
+    //1. Base
+    public static final String API_V1_BASE = "/api/v1";
+    //2. Authentication
+    public static final String AUTH = "/auth";
+    public static final String LOGIN = AUTH + "/login";
+    public static final String REGISTER = AUTH + "/register";
+    //3. User & admin
+    public static final String USERS = "/users";
+    public static final String USER_PROFILE = USERS + "/me";
+    public static final String CRUD_USER = USERS + "/{id}";
+    public static final String ADMIN = "/admin";
+    public static final String ADMIN_USERS = ADMIN + USERS;
+    public static final String CRUD_ADMIN_USERS = ADMIN + CRUD_USER;
+    //4. Product
+    public static final String PRODUCTS =  "/products";
+    public static final String CRUD_PRODUCT = PRODUCTS + "/{id}";
+    public static final String ADMIN_PRODUCTS = ADMIN + "/products";
+    public static final String CRUD_ADMIN_PRODUCTS = ADMIN + CRUD_PRODUCT;
+    //5. Cart
+    public static final String CARTS = "/carts";
+    public static final String CRUD_CART = CARTS + "/{id}";
+    public static final String CART_ITEMS = CARTS + "/items";
+    public static final String CRUD_CART_ITEMS = CART_ITEMS + "/{id}";
+    public static final String USER_CART = USERS + "/cart";
+    public static final String CRUD_USER_CART = USER_PROFILE + CRUD_CART;
+    //6. Order
+    public static final String ORDERS = "/orders";
+    public static final String CRUD_ORDER = ORDERS + "/{id}";
+    public static final String ORDER_ITEMS = ORDERS + "/items";
+    public static final String CRUD_ORDER_ITEMS = ORDER_ITEMS + "/{id}";
+    public static final String USER_ORDERS = USERS + "/orders";
+    public static final String CRUD_USER_ORDERS = USER_PROFILE + CRUD_ORDER;
 
-    //Admin biz function
-    public static final String API_V1_ADMIN_LOGIN = "api/v1/admins/login";
-    public static final String API_V1_USER_GET_ALL = "api/v1/users";
-    public static final String API_V1_USER_FIND_BY_ID = "api/v1/users/{userId}";
-    public static final String API_V1_USER_BLOCK = "api/v1/users/block/{userId}";
-    public static final String API_V1_USER_UPDATE = "api/v1/users/update/{userId}";
-    public static final String API_V1_PRODUCT_ADD = "api/v1/products/add";
-    public static final String API_V1_PRODUCT_UPDATE = "api/v1/products/update";
-    public static final String API_V1_PRODUCT_DELETE = "api/v1/products/delete";
-    public static final String API_V1_PRODUCT_GET_ALL = "api/v1/products";
-    public static final String API_V1_PRODUCT_FIND_BY_ID = "api/v1/products/{productId}";
-    public static final String API_V1_PRODUCT_FIND_BY_CATEGORY = "api/v1/products/category/{categoryName}";
+    //User biz functions
+    public static final String PRODUCT_GET_IN_STOCK = PRODUCTS + "/in-stock";
+    public static final String CART_GET_BY_USER = USER_PROFILE + "/cart";
+    public static final String ORDER_GET_BY_USER = USER_PROFILE + "/order";
+    public static final String ORDER_FIND_BY_ID = ORDERS + "/{id}";
+    public static final String ORDER_HISTORY = ORDERS + "/history";
+
+    //Admin biz functions
+    public static final String BLOCK_USER = CRUD_ADMIN_USERS + "/block";
+
 
 }
