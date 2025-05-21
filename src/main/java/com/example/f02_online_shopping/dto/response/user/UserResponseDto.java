@@ -1,6 +1,5 @@
 package com.example.f02_online_shopping.dto.response.user;
 
-import com.example.f02_online_shopping.entity.Order;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +11,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDto {
+public class UserResponseDto {
     private Integer id;
     private String email;
     private String fullName;
@@ -25,12 +24,12 @@ public class UserDto {
         return object;
     }
 
-    public UserDto(String email, String fullName) {
+    public UserResponseDto(String email, String fullName) {
         this.email = email;
         this.fullName = fullName;
     }
 
-    public UserDto(Integer id, String email, String fullName) {
+    public UserResponseDto(Integer id, String email, String fullName) {
         this.id = id;
         this.email = email;
         this.fullName = fullName;

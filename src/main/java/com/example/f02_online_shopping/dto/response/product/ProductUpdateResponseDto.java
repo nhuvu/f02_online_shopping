@@ -7,6 +7,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ProductUpdateResponseDto {
-    private ProductDto updateProduct;
+    private ProductResponseDto updateProduct;
     private GenericResponseDto response;
 }

@@ -8,7 +8,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class OrderDto {
+public class OrderResponseDto {
     private Integer id;
     private String status;
     private BigDecimal totalAmount;

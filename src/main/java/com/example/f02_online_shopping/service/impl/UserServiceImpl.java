@@ -3,7 +3,7 @@ package com.example.f02_online_shopping.service.impl;
 import com.example.f02_online_shopping.dto.request.user.UserLoginRequestDto;
 import com.example.f02_online_shopping.dto.request.user.UserRegisterRequestDto;
 import com.example.f02_online_shopping.dto.request.user.UserUpdateRequestDto;
-import com.example.f02_online_shopping.dto.response.user.UserDto;
+import com.example.f02_online_shopping.dto.response.user.UserResponseDto;
 import com.example.f02_online_shopping.entity.Order;
 import com.example.f02_online_shopping.entity.User;
 import com.example.f02_online_shopping.exception.ApiException;
@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
     private BCryptPasswordEncoder passwordEncoder;
 
     @Override
-    public UserDto registerUser(UserRegisterRequestDto request) {
+    public UserResponseDto registerUser(UserRegisterRequestDto request) {
         //Validate user
         Object error = userValidatorService.validateCreateUserRequest(request);
         if (error != null) {
@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
         userRepository.save(userCreate);
 
         //Return response
-        return new UserDto(request.getFullName(), request.getEmail());
+        return new UserResponseDto(request.getFullName(), request.getEmail());
     }
 
     @Override
@@ -66,12 +66,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto login(UserLoginRequestDto request) {
+    public UserResponseDto login(UserLoginRequestDto request) {
         return null;
     }
 
     @Override
-    public UserDto getUserById(Integer id) {
+    public UserResponseDto getUserById(Integer id) {
         //validate id
         checkUserValidity(id);
         //get id
@@ -88,7 +88,7 @@ public class UserServiceImpl implements UserService {
         for(Order order : userDetail.getOrders()){
             orderDetails.add("Order id: " + order.getId() + "; status: " + order.getStatus() + "; total amount: " + order.getTotal_amount());
         }
-        return new UserDto(userDetail.getId(),
+        return new UserResponseDto(userDetail.getId(),
                             userDetail.getFullname(),
                             userDetail.getEmail(),
                             userDetail.getStatus(),
@@ -98,7 +98,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto updateUser(UserUpdateRequestDto request) {
+    public UserResponseDto updateUser(UserUpdateRequestDto request) {
         int rowAffects = userRepository.updateUser(
                 request.getId(),
                 request.getFullName(),
@@ -109,7 +109,7 @@ public class UserServiceImpl implements UserService {
             throw new ApiException(404, "User not found");
         }
 
-        return new UserDto(
+        return new UserResponseDto(
                 request.getId(),
                 request.getEmail(),
                 request.getFullName());

@@ -8,7 +8,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class CartDto {
+public class CartResponseDto {
     private Integer cartId;
     private Integer userId;
     private List<CartItemDto> cartItems;

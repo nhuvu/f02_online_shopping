@@ -8,5 +8,5 @@ import java.util.List;
 @Getter
 @Setter
 public class OrderListResponseDto {
-    private List<OrderDto> orders;
+    private List<OrderResponseDto> orders;
 }

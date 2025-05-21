@@ -8,5 +8,5 @@ import java.util.List;
 @Getter
 @Setter
 public class ProductListResponseDto {
-    private List<ProductDto> products;
+    private List<ProductResponseDto> products;
 }

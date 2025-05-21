@@ -10,8 +10,8 @@ public class UrlConstant {
     public static final String REGISTER = AUTH + "/register";
     //3. User & admin
     public static final String USERS = "/users";
-    public static final String USER_PROFILE = USERS + "/me";
     public static final String CRUD_USER = USERS + "/{id}";
+    public static final String USER_PROFILE = USERS + "/me";
     public static final String ADMIN = "/admin";
     public static final String ADMIN_USERS = ADMIN + USERS;
     public static final String CRUD_ADMIN_USERS = ADMIN + CRUD_USER;
@@ -39,8 +39,7 @@ public class UrlConstant {
     public static final String PRODUCT_GET_IN_STOCK = PRODUCTS + "/in-stock";
     public static final String CART_GET_BY_USER = USER_PROFILE + "/cart";
     public static final String ORDER_GET_BY_USER = USER_PROFILE + "/order";
-    public static final String ORDER_FIND_BY_ID = ORDERS + "/{id}";
-    public static final String ORDER_HISTORY = ORDERS + "/history";
+    public static final String ORDER_HISTORY = CRUD_ORDER + "/history";
 
     //Admin biz functions
     public static final String BLOCK_USER = CRUD_ADMIN_USERS + "/block";
