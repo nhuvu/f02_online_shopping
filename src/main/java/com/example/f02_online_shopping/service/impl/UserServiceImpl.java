@@ -98,6 +98,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<UserResponseDto> getAllUsers() {
+        return List.of();
+    }
+
+    @Override
+    public UserResponseDto getUserByEmail(String email) {
+        return null;
+    }
+
+    @Override
+    public UserResponseDto blockUser(Integer id) {
+        return null;
+    }
+
+    @Override
     public UserResponseDto updateUser(UserUpdateRequestDto request) {
         int rowAffects = userRepository.updateUser(
                 request.getId(),
