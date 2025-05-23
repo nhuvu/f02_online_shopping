@@ -16,14 +16,9 @@ public class AuthenticationController {
     @Autowired
     UserService userService;
 
-    @PostMapping(UrlConstant.LOGIN)
-    public Object login(@RequestBody UserLoginRequestDto request){
-        try{
-            return ResponseEntity.ok(userService.login(request));
-        }catch (ApiException e){
-            return ResponseEntity.status(e.getHttpCode()).body(e.getMessage());
-        }    }
-
+    /** [F01]: User & Admin
+     * Đăng ký: Theo email & mật khẩu (ORM-1)
+     * */
     @PostMapping(UrlConstant.REGISTER)
     public Object register(@RequestBody UserRegisterRequestDto request){
         try{
@@ -32,4 +27,17 @@ public class AuthenticationController {
             return ResponseEntity.status(e.getHttpCode()).body(e.getMessage());
         }
     }
+
+    /** [F02]: User & Admin
+     * Đăng nhập: Theo email & mật khẩu (ORM-1)
+     * */
+    @PostMapping(UrlConstant.LOGIN)
+    public Object login(@RequestBody UserLoginRequestDto request){
+        try{
+            return ResponseEntity.ok(userService.login(request));
+        }catch (ApiException e){
+            return ResponseEntity.status(e.getHttpCode()).body(e.getMessage());
+        }    }
+
+
 }

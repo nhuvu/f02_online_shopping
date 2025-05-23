@@ -4,9 +4,11 @@ import com.example.f02_online_shopping.dto.request.product.ProductCreateRequestD
 import com.example.f02_online_shopping.dto.request.product.ProductUpdateRequestDto;
 import com.example.f02_online_shopping.dto.response.product.ProductResponseDto;
 import com.example.f02_online_shopping.service.ProductService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ProductServiceImpl implements ProductService {
     @Override
     public List<ProductResponseDto> getInStockProductList() {
