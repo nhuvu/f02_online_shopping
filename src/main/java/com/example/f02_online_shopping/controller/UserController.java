@@ -1,7 +1,6 @@
 package com.example.f02_online_shopping.controller;
 
 import com.example.f02_online_shopping.constant.UrlConstant;
-import com.example.f02_online_shopping.dto.request.user.UserRegisterRequestDto;
 import com.example.f02_online_shopping.dto.request.user.UserUpdateRequestDto;
 import com.example.f02_online_shopping.exception.ApiException;
 import com.example.f02_online_shopping.service.UserService;
@@ -34,7 +33,4 @@ public class UserController {
             return ResponseEntity.status(e.getHttpCode()).body(e.getMessage());
         }
     }
-
-
-
 }

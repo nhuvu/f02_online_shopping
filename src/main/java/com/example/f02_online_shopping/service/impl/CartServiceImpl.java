@@ -2,7 +2,6 @@ package com.example.f02_online_shopping.service.impl;
 
 import com.example.f02_online_shopping.dto.request.cart.CartUpdateRequestDto;
 import com.example.f02_online_shopping.dto.response.cart.CartResponseDto;
-import com.example.f02_online_shopping.model.UserModel;
 import com.example.f02_online_shopping.service.CartService;
 import com.example.f02_online_shopping.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

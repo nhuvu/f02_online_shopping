@@ -20,10 +20,6 @@ public class UserResponseDto {
     private Integer cartId;
     private List<String> order;
 
-    public Object setError(Object object){
-        return object;
-    }
-
     public UserResponseDto(String email, String fullName) {
         this.email = email;
         this.fullName = fullName;
@@ -33,5 +29,20 @@ public class UserResponseDto {
         this.id = id;
         this.email = email;
         this.fullName = fullName;
+    }
+
+    public UserResponseDto(String email, String fullName, String status, String role) {
+        this.email = email;
+        this.fullName = fullName;
+        this.status = status;
+        this.role = role;
+    }
+
+    public UserResponseDto(Integer id, String email, String fullName, String status, String role) {
+        this.id = id;
+        this.email = email;
+        this.fullName = fullName;
+        this.status = status;
+        this.role = role;
     }
 }

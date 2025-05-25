@@ -1,5 +1,8 @@
 package com.example.f02_online_shopping.service.impl;
 
+import com.example.f02_online_shopping.constant.Constant;
+import com.example.f02_online_shopping.constant.UrlConstant;
+import com.example.f02_online_shopping.dto.request.user.UserBlockRequestDto;
 import com.example.f02_online_shopping.dto.request.user.UserLoginRequestDto;
 import com.example.f02_online_shopping.dto.request.user.UserRegisterRequestDto;
 import com.example.f02_online_shopping.dto.request.user.UserUpdateRequestDto;
@@ -36,11 +39,10 @@ public class UserServiceImpl implements UserService {
         if (error != null) {
             throw new ApiException(401, "User detail not valid");
         }
-        User userExist = userRepository.findByFullname(request.getFullName());
-        if(userExist != null){
-            throw new ApiException(400, "User already exists");
+        Optional<User> userExist = Optional.ofNullable(userRepository.findByFullname(request.getFullName()));
+        if(userExist.isPresent()){
+            throw new ApiException(404, "User already exists");
         }
-
         //Create user
         User userCreate = new User();
         userCreate.setFullname(request.getFullName());
@@ -49,10 +51,64 @@ public class UserServiceImpl implements UserService {
         userCreate.setRole("USER");
         userCreate.setStatus("ACTIVE");
         userRepository.save(userCreate);
-
         //Return response
-        return new UserResponseDto(request.getFullName(), request.getEmail());
+        return new UserResponseDto(
+                request.getFullName(),
+                request.getEmail());
     }
+
+    @Override
+    public UserResponseDto login(UserLoginRequestDto request) {
+        User userExist = Optional.ofNullable(userRepository.findByEmail(request.getEmail()))
+                .orElseThrow(() -> new ApiException(404, "User not found with email: " + request.getEmail()));
+        if(passwordEncoder.matches(request.getPassword(), userExist.getPassword())){
+            return new UserResponseDto(
+                    userExist.getEmail(),
+                    userExist.getFullname(),
+                    userExist.getStatus(),
+                    userExist.getRole()
+            );
+        }
+        throw new ApiException(401, "Invalid password");
+    }
+
+    @Override
+    public UserResponseDto getUserByEmail(String email) {
+        User user = Optional.ofNullable(userRepository.findUserByEmail(Constant.USER, email))
+                .orElseThrow(() -> new ApiException(404, "There is no user exist with email: " + email));
+        return new UserResponseDto(
+                user.getId(),
+                user.getEmail(),
+                user.getFullname(),
+                user.getStatus(),
+                user.getRole()
+        );
+    }
+
+    @Override
+    public UserResponseDto blockUser(Integer id) {
+        //find user by id
+        User userExist = Optional.ofNullable(userRepository.findByUserId(id))
+                .orElseThrow(() -> new ApiException(404, "User not found with id: " + id));
+        //check role of user, if it's ADMIN -> will not block
+        if(userExist.getRole().equals(Constant.ADMIN)){
+            throw new ApiException(403, "You are not allowed to block this user");
+        }
+        //check current status of user, if it's already BLOCK -> will not block
+        if(userExist.getStatus().equals(Constant.BLOCK)){
+            throw new ApiException(409, "User is already blocked");
+        }
+        //block user (update status to BLOCK)
+        userRepository.updateUserStatus(
+                id,
+                Constant.BLOCK
+        );
+        return new UserResponseDto(
+                id,
+                userExist.getStatus(),
+                userExist.getRole());
+    }
+
 
     @Override
     public void checkUserValidity(Integer id) {
@@ -66,16 +122,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserResponseDto login(UserLoginRequestDto request) {
-        return null;
-    }
-
-    @Override
     public UserResponseDto getUserById(Integer id) {
         //validate id
         checkUserValidity(id);
         //get id
-        //Optional<User> user = userRepository.findById(id);
         Optional<User> user = Optional.ofNullable(userRepository.findByUserId(id));
 
         if(user.isEmpty()){
@@ -99,22 +149,23 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserResponseDto> getAllUsers() {
-        return List.of();
-    }
-
-    @Override
-    public UserResponseDto getUserByEmail(String email) {
-        return null;
-    }
-
-    @Override
-    public UserResponseDto blockUser(Integer id) {
-        return null;
+        List<User> users = userRepository.findAllByRole(Constant.USER);
+        List<UserResponseDto> userResponseDtos = new ArrayList<>();
+        for(User user : users){
+            UserResponseDto userResponseDto = new UserResponseDto();
+            userResponseDto.setId(user.getId());
+            userResponseDto.setEmail(user.getEmail());
+            userResponseDto.setRole(user.getRole());
+            userResponseDto.setStatus(user.getStatus());
+            userResponseDto.setFullName(user.getFullname());
+            userResponseDtos.add(userResponseDto);
+        }
+        return userResponseDtos;
     }
 
     @Override
     public UserResponseDto updateUser(UserUpdateRequestDto request) {
-        int rowAffects = userRepository.updateUser(
+        int rowAffects = userRepository.updateUserInfo(
                 request.getId(),
                 request.getFullName(),
                 request.getEmail(),
@@ -123,7 +174,6 @@ public class UserServiceImpl implements UserService {
         if(rowAffects <= 0){
             throw new ApiException(404, "User not found");
         }
-
         return new UserResponseDto(
                 request.getId(),
                 request.getEmail(),

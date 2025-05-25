@@ -13,7 +13,6 @@ import java.util.List;
 public class OrderServiceImpl implements OrderService {
     @Override
     public Object createOrder(UserModel user, List<ProductModel> items) {
-        //TODO: CREATE ORDER
         return null;
     }
 

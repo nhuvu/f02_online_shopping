@@ -16,8 +16,7 @@ public class AuthenticationController {
     @Autowired
     UserService userService;
 
-    /** [F01]: User & Admin
-     * Đăng ký: Theo email & mật khẩu (ORM-1)
+    /** [F01]: User & Admin - Đăng ký: Theo email & mật khẩu (ORM-1)
      * */
     @PostMapping(UrlConstant.REGISTER)
     public Object register(@RequestBody UserRegisterRequestDto request){
@@ -28,8 +27,7 @@ public class AuthenticationController {
         }
     }
 
-    /** [F02]: User & Admin
-     * Đăng nhập: Theo email & mật khẩu (ORM-1)
+    /** [F02]: User & Admin - Đăng nhập: Theo email & mật khẩu (ORM-1)
      * */
     @PostMapping(UrlConstant.LOGIN)
     public Object login(@RequestBody UserLoginRequestDto request){

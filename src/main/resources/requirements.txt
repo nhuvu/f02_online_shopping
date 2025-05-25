@@ -20,14 +20,14 @@ II. Các chức năng của quản trị viên (admin):
         [F02] Theo email & mật khẩu. (ORM-1)
     2. Quản lý người dùng:
         [F04] Xem danh sách (ORM-1)
-        [FXX] Tìm kiếm người dùng theo email, …).
-        [F05] Chặn tài khoản người dùng. (ORM-1)
+        [F05] Tìm kiếm người dùng theo email, …).
+        [F06] Chặn tài khoản người dùng. (ORM-1)
     3. Quản lý sản phẩm:
-        [F06] Thêm sản phẩm trong kho. (ORM-1)
-        [F07] Sửa sản phẩm
-        [F08] Xoá sản phẩm
-        [F09] Cập nhật sản phẩm
-        [F10] Xem danh sách sp trong kho (ORM-1)
+        [F07] Thêm sản phẩm trong kho. (ORM-1)
+        [F08] Sửa sản phẩm (ORM-1)
+        [F09] Xoá sản phẩm (ORM-1)
+        [F10] Cập nhật sản phẩm (ORM-1)
+        [F11] Xem danh sách sp trong kho (ORM-1)
         3.3 Tìm kiếm sản phẩm trong kho.
             - Tìm kiếm theo loại sản phẩm
             - Tìm kiếm theo tên sản phẩm

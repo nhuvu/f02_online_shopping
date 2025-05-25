@@ -41,7 +41,8 @@ public class UrlConstant {
     public static final String ORDER_HISTORY = CRUD_ORDER + "/history";
 
     //Admin biz functions
-    public static final String BLOCK_USER = CRUD_ADMIN_USERS + "/block";
+    public static final String BLOCK_USER = ADMIN_USERS + "/block";
+    public static final String SEARCH_USER = ADMIN_USERS + "/search";
 
 
 }
