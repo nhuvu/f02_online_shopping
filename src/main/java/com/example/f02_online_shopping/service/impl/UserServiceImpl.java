@@ -1,8 +1,6 @@
 package com.example.f02_online_shopping.service.impl;
 
 import com.example.f02_online_shopping.constant.Constant;
-import com.example.f02_online_shopping.constant.UrlConstant;
-import com.example.f02_online_shopping.dto.request.user.UserBlockRequestDto;
 import com.example.f02_online_shopping.dto.request.user.UserLoginRequestDto;
 import com.example.f02_online_shopping.dto.request.user.UserRegisterRequestDto;
 import com.example.f02_online_shopping.dto.request.user.UserUpdateRequestDto;
@@ -109,7 +107,6 @@ public class UserServiceImpl implements UserService {
                 userExist.getRole());
     }
 
-
     @Override
     public void checkUserValidity(Integer id) {
         //TODO: CHECK USER VALIDITY
@@ -119,32 +116,6 @@ public class UserServiceImpl implements UserService {
         if(id <= 0){
             throw new ApiException(401, "Id is invalid");
         }
-    }
-
-    @Override
-    public UserResponseDto getUserById(Integer id) {
-        //validate id
-        checkUserValidity(id);
-        //get id
-        Optional<User> user = Optional.ofNullable(userRepository.findByUserId(id));
-
-        if(user.isEmpty()){
-            throw new ApiException(404, "User not found");
-        }
-        User userDetail = user.get();
-
-        //Build list order details
-        List<String> orderDetails = new ArrayList<>();
-        for(Order order : userDetail.getOrders()){
-            orderDetails.add("Order id: " + order.getId() + "; status: " + order.getStatus() + "; total amount: " + order.getTotal_amount());
-        }
-        return new UserResponseDto(userDetail.getId(),
-                            userDetail.getFullname(),
-                            userDetail.getEmail(),
-                            userDetail.getStatus(),
-                            userDetail.getRole(),
-                            userDetail.getCart().getId(),
-                            orderDetails);
     }
 
     @Override
@@ -163,7 +134,7 @@ public class UserServiceImpl implements UserService {
         return userResponseDtos;
     }
 
-    @Override
+
     public UserResponseDto updateUser(UserUpdateRequestDto request) {
         int rowAffects = userRepository.updateUserInfo(
                 request.getId(),
@@ -178,5 +149,30 @@ public class UserServiceImpl implements UserService {
                 request.getId(),
                 request.getEmail(),
                 request.getFullName());
+    }
+
+    public UserResponseDto getUserById(Integer id) {
+        //validate id
+        checkUserValidity(id);
+        //get id
+        Optional<User> user = Optional.ofNullable(userRepository.findByUserId(id));
+
+        if(user.isEmpty()){
+            throw new ApiException(404, "User not found");
+        }
+        User userDetail = user.get();
+
+        //Build list order details
+        List<String> orderDetails = new ArrayList<>();
+        for(Order order : userDetail.getOrders()){
+            orderDetails.add("Order id: " + order.getId() + "; status: " + order.getStatus() + "; total amount: " + order.getTotal_amount());
+        }
+        return new UserResponseDto(userDetail.getId(),
+                userDetail.getFullname(),
+                userDetail.getEmail(),
+                userDetail.getStatus(),
+                userDetail.getRole(),
+                userDetail.getCart().getId(),
+                orderDetails);
     }
 }
