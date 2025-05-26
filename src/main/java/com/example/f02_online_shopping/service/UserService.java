@@ -1,10 +1,21 @@
 package com.example.f02_online_shopping.service;
 
-import com.example.f02_online_shopping.dto.request.UserCreationRequestDto;
-import com.example.f02_online_shopping.dto.response.UserCreationResponseDto;
-import com.example.f02_online_shopping.model.User;
+import com.example.f02_online_shopping.dto.request.user.UserLoginRequestDto;
+import com.example.f02_online_shopping.dto.request.user.UserRegisterRequestDto;
+import com.example.f02_online_shopping.dto.response.user.UserResponseDto;
+
+import java.util.List;
 
 public interface UserService {
-    void checkUserValidity(User user);
-    UserCreationResponseDto createUser(UserCreationRequestDto userCreationRequestDto);
+    void checkUserValidity(Integer id);
+    //Register
+    UserResponseDto registerUser(UserRegisterRequestDto request);
+    //Login
+    UserResponseDto login(UserLoginRequestDto request);
+    //View user list
+    List<UserResponseDto> getAllUsers();
+    //Search user by email
+    UserResponseDto getUserByEmail(String email);
+    //Block user
+    UserResponseDto blockUser(Integer id);
 }
