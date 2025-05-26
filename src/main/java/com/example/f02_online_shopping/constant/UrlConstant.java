@@ -27,7 +27,7 @@ public class UrlConstant {
     public static final String CART_ITEMS = CARTS + "/items";
     public static final String CRUD_CART_ITEMS = CART_ITEMS + "/{id}";
     public static final String USER_CART = USERS + CARTS;
-    public static final String CRUD_USER_CART = USER_PROFILE + CRUD_CART;
+    public static final String CRUD_USER_CART = CRUD_USER + CARTS;
     //6. Order
     public static final String ORDERS = "/orders";
     public static final String CRUD_ORDER = ORDERS + "/{id}";

@@ -5,9 +5,11 @@ import com.example.f02_online_shopping.dto.request.user.UserLoginRequestDto;
 import com.example.f02_online_shopping.dto.request.user.UserRegisterRequestDto;
 import com.example.f02_online_shopping.dto.request.user.UserUpdateRequestDto;
 import com.example.f02_online_shopping.dto.response.user.UserResponseDto;
+import com.example.f02_online_shopping.entity.Cart;
 import com.example.f02_online_shopping.entity.Order;
 import com.example.f02_online_shopping.entity.User;
 import com.example.f02_online_shopping.exception.ApiException;
+import com.example.f02_online_shopping.repository.CartRepository;
 import com.example.f02_online_shopping.repository.UserRepository;
 import com.example.f02_online_shopping.service.UserService;
 import com.example.f02_online_shopping.service.UserValidatorService;
@@ -30,6 +32,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
+    @Autowired
+    private CartRepository cartRepository;
+
     @Override
     public UserResponseDto registerUser(UserRegisterRequestDto request) {
         //Validate user
@@ -49,6 +54,10 @@ public class UserServiceImpl implements UserService {
         userCreate.setRole("USER");
         userCreate.setStatus("ACTIVE");
         userRepository.save(userCreate);
+        //Create a new cart respectively to map with new user created
+        Cart cartCreate = new Cart();
+        cartCreate.setUser(userCreate);
+        cartRepository.save(cartCreate);
         //Return response
         return new UserResponseDto(
                 request.getFullName(),
