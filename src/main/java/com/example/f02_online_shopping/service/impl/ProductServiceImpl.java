@@ -96,9 +96,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Object deleteProduct(Integer id) {
-        Product product = Optional.ofNullable(productRepository.findByProductId(id))
+        Optional<Product> product = Optional.ofNullable(productRepository.findByProductId(id))
                 .orElseThrow(() -> new ApiException(404, "Product not found"));
-        productRepository.delete(product);
+        product.ifPresent(value -> productRepository.delete(value));
         return String.format("Delete product with product id %d successfully", id);
     }
 

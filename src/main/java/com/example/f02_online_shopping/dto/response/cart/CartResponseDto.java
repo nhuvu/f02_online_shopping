@@ -1,6 +1,5 @@
 package com.example.f02_online_shopping.dto.response.cart;
 
-import com.example.f02_online_shopping.entity.CartItem;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
