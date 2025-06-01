@@ -11,12 +11,12 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserRegisterRequestDto {
-    @Email
+    @Email(message = "Email is invalid")
     private String email;
 
     @NotBlank(message = "Full name is invalid")
     @Size(message = "Full name is invalid", min = 2, max = 255)
-    @Pattern(regexp = "^[A-Za-z ]+$")
+    @Pattern(regexp = "^[A-Za-z ]+$", message = "Full name is invalid")
     private String fullName;
 
     @NotBlank(message = "Password is invalid")

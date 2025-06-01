@@ -31,6 +31,4 @@ public class AuthenticationController {
     public Object login(@Valid @RequestBody UserLoginRequestDto request) {
         return userService.login(request);
     }
-
-
 }

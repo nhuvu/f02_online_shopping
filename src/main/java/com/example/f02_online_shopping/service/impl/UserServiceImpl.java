@@ -23,8 +23,6 @@ import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
-    @Autowired
-    private UserValidatorService userValidatorService;
 
     @Autowired
     private UserRepository userRepository;

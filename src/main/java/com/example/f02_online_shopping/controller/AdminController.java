@@ -6,6 +6,9 @@ import com.example.f02_online_shopping.dto.request.product.ProductUpdateRequestD
 import com.example.f02_online_shopping.service.ProductService;
 import com.example.f02_online_shopping.service.UserService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,7 +33,8 @@ public class AdminController {
      * [F05] Admin chặn tài khoản người dùng (ORM-1)
      */
     @PostMapping(UrlConstant.BLOCK_USER)
-    public Object blockUser(@PathVariable Integer userId) {
+    public Object blockUser(@Valid
+                            @PathVariable @NotNull @Min(value = 1, message = "User Id must start from 1") Integer userId) {
         return userService.blockUser(userId);
     }
 
@@ -38,7 +42,8 @@ public class AdminController {
      * [F06] Admin tìm người dùng bằng email (ORM-1)
      */
     @GetMapping(UrlConstant.SEARCH_USER)
-    public Object findUserByEmail(@RequestParam String email) {
+    public Object findUserByEmail(@Valid
+                                  @RequestParam @NotNull @Email(message = "Email is not valid") String email) {
         return userService.getUserByEmail(email);
     }
 
@@ -54,7 +59,9 @@ public class AdminController {
      * [F08] Admin sửa sản phẩm trong kho (ORM-1)
      */
     @PutMapping(UrlConstant.CRUD_ADMIN_PRODUCTS)
-    public Object fullUpdateProduct(@PathVariable Integer productId, @Valid @RequestBody ProductUpdateRequestDto requestDto){
+    public Object fullUpdateProduct(@Valid
+                                    @PathVariable @NotNull @Min(value = 1, message = "Product Id must start from 1") Integer productId,
+                                    @RequestBody ProductUpdateRequestDto requestDto) {
         requestDto.setProductId(productId);
         return productService.updateProduct(requestDto);
     }
@@ -63,7 +70,8 @@ public class AdminController {
      * [F09] Admin xoá sản phẩm trong kho (ORM-1)
      */
     @DeleteMapping(UrlConstant.CRUD_ADMIN_PRODUCTS)
-    public Object deleteProduct(@PathVariable Integer productId) {
+    public Object deleteProduct(@Valid
+                                @PathVariable @NotNull @Min(value = 1, message = "Product Id must start from 1") Integer productId) {
         return productService.deleteProduct(productId);
     }
 
@@ -71,7 +79,9 @@ public class AdminController {
      * [F10] Admin cập nhật sản phẩm trong kho (ORM-1)
      */
     @PatchMapping(UrlConstant.CRUD_ADMIN_PRODUCTS)
-    public Object partialUpdateProduct(@PathVariable Integer productId, @Valid @RequestBody ProductUpdateRequestDto requestDto) {
+    public Object partialUpdateProduct(@Valid
+                                       @PathVariable @NotNull @Min(value = 1, message = "Product Id must start from 1") Integer productId
+            , @RequestBody ProductUpdateRequestDto requestDto) {
         requestDto.setProductId(productId);
         return productService.updateProduct(requestDto);
     }
