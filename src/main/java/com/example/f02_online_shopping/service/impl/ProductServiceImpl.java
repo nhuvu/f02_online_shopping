@@ -7,7 +7,6 @@ import com.example.f02_online_shopping.entity.Product;
 import com.example.f02_online_shopping.exception.ApiException;
 import com.example.f02_online_shopping.repository.ProductRepository;
 import com.example.f02_online_shopping.service.ProductService;
-import com.example.f02_online_shopping.service.ProductValidatorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,9 +18,6 @@ import java.util.Optional;
 public class ProductServiceImpl implements ProductService {
     @Autowired
     ProductRepository productRepository;
-
-    @Autowired
-    ProductValidatorService productValidatorService;
 
     @Override
     public List<ProductResponseDto> getInStockProductList() {
@@ -40,11 +36,6 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductResponseDto createProduct(ProductCreateRequestDto requestDto) {
-        //Validate request
-        Object error = productValidatorService.validateProduct(requestDto);
-        if (error != null) {
-            throw new ApiException(401, "Product detail not valid");
-        }
         //Validate product exist first
         Optional<Product> productExist = Optional.ofNullable(productRepository.findProductByAttributes(
                 requestDto.getName(), requestDto.getPrice(), requestDto.getOriginalPrice(),requestDto.getCategory()));

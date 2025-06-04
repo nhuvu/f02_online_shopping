@@ -3,6 +3,7 @@ package com.example.f02_online_shopping.controller;
 import com.example.f02_online_shopping.constant.UrlConstant;
 import com.example.f02_online_shopping.dto.request.user.UserLoginRequestDto;
 import com.example.f02_online_shopping.dto.request.user.UserRegisterRequestDto;
+import com.example.f02_online_shopping.service.AuthService;
 import com.example.f02_online_shopping.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +17,15 @@ public class AuthenticationController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    AuthService authService;
+
     /**
      * [F01]: User & Admin - Đăng ký: Theo email & mật khẩu (ORM-1)
      */
     @PostMapping(UrlConstant.REGISTER)
     public Object register(@Valid @RequestBody UserRegisterRequestDto request) {
-        return userService.createUser(request);
+        return authService.createUser(request);
     }
 
     /**
@@ -29,6 +33,6 @@ public class AuthenticationController {
      */
     @PostMapping(UrlConstant.LOGIN)
     public Object login(@Valid @RequestBody UserLoginRequestDto request) {
-        return userService.login(request);
+        return authService.login(request);
     }
 }
