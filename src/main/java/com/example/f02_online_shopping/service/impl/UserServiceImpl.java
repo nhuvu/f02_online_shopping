@@ -5,9 +5,11 @@ import com.example.f02_online_shopping.dto.request.user.UserLoginRequestDto;
 import com.example.f02_online_shopping.dto.request.user.UserRegisterRequestDto;
 import com.example.f02_online_shopping.dto.request.user.UserUpdateRequestDto;
 import com.example.f02_online_shopping.dto.response.user.UserResponseDto;
+import com.example.f02_online_shopping.entity.Cart;
 import com.example.f02_online_shopping.entity.Order;
 import com.example.f02_online_shopping.entity.User;
-import com.example.f02_online_shopping.exception.ApiException;
+import com.example.f02_online_shopping.exception.UserException;
+import com.example.f02_online_shopping.repository.CartRepository;
 import com.example.f02_online_shopping.repository.UserRepository;
 import com.example.f02_online_shopping.service.UserService;
 import com.example.f02_online_shopping.service.UserValidatorService;
@@ -21,8 +23,6 @@ import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
-    @Autowired
-    private UserValidatorService userValidatorService;
 
     @Autowired
     private UserRepository userRepository;
@@ -30,16 +30,14 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
+    @Autowired
+    private CartRepository cartRepository;
+
     @Override
-    public UserResponseDto registerUser(UserRegisterRequestDto request) {
-        //Validate user
-        Object error = userValidatorService.validateCreateUserRequest(request);
-        if (error != null) {
-            throw new ApiException(401, "User detail not valid");
-        }
+    public UserResponseDto createUser(UserRegisterRequestDto request) {
         Optional<User> userExist = Optional.ofNullable(userRepository.findByFullname(request.getFullName()));
         if(userExist.isPresent()){
-            throw new ApiException(404, "User already exists");
+            throw new UserException(404, "User already exists");
         }
         //Create user
         User userCreate = new User();
@@ -49,6 +47,10 @@ public class UserServiceImpl implements UserService {
         userCreate.setRole("USER");
         userCreate.setStatus("ACTIVE");
         userRepository.save(userCreate);
+        //Create a new cart respectively to map with new user created
+        Cart cartCreate = new Cart();
+        cartCreate.setUser(userCreate);
+        cartRepository.save(cartCreate);
         //Return response
         return new UserResponseDto(
                 request.getFullName(),
@@ -58,7 +60,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserResponseDto login(UserLoginRequestDto request) {
         User userExist = Optional.ofNullable(userRepository.findByEmail(request.getEmail()))
-                .orElseThrow(() -> new ApiException(404, "User not found with email: " + request.getEmail()));
+                .orElseThrow(() -> new UserException(404, "User not found with email: " + request.getEmail()));
         if(passwordEncoder.matches(request.getPassword(), userExist.getPassword())){
             return new UserResponseDto(
                     userExist.getEmail(),
@@ -67,13 +69,13 @@ public class UserServiceImpl implements UserService {
                     userExist.getRole()
             );
         }
-        throw new ApiException(401, "Invalid password");
+        throw new UserException(401, "Invalid password");
     }
 
     @Override
     public UserResponseDto getUserByEmail(String email) {
         User user = Optional.ofNullable(userRepository.findUserByEmail(Constant.USER, email))
-                .orElseThrow(() -> new ApiException(404, "There is no user exist with email: " + email));
+                .orElseThrow(() -> new UserException(404, "There is no user exist with email: " + email));
         return new UserResponseDto(
                 user.getId(),
                 user.getEmail(),
@@ -87,14 +89,14 @@ public class UserServiceImpl implements UserService {
     public UserResponseDto blockUser(Integer id) {
         //find user by id
         User userExist = Optional.ofNullable(userRepository.findByUserId(id))
-                .orElseThrow(() -> new ApiException(404, "User not found with id: " + id));
+                .orElseThrow(() -> new UserException(404, "User not found with id: " + id));
         //check role of user, if it's ADMIN -> will not block
         if(userExist.getRole().equals(Constant.ADMIN)){
-            throw new ApiException(403, "You are not allowed to block this user");
+            throw new UserException(403, "You are not allowed to block this user");
         }
         //check current status of user, if it's already BLOCK -> will not block
         if(userExist.getStatus().equals(Constant.BLOCK)){
-            throw new ApiException(409, "User is already blocked");
+            throw new UserException(409, "User is already blocked");
         }
         //block user (update status to BLOCK)
         userRepository.updateUserStatus(
@@ -111,10 +113,10 @@ public class UserServiceImpl implements UserService {
     public void checkUserValidity(Integer id) {
         //TODO: CHECK USER VALIDITY
         if(id == null){
-            throw new ApiException(401, "Id is invalid");
+            throw new UserException(401, "Id is invalid");
         }
         if(id <= 0){
-            throw new ApiException(401, "Id is invalid");
+            throw new UserException(401, "Id is invalid");
         }
     }
 
@@ -143,7 +145,7 @@ public class UserServiceImpl implements UserService {
                 request.getPassword()
         );
         if(rowAffects <= 0){
-            throw new ApiException(404, "User not found");
+            throw new UserException(404, "User not found");
         }
         return new UserResponseDto(
                 request.getId(),
@@ -158,7 +160,7 @@ public class UserServiceImpl implements UserService {
         Optional<User> user = Optional.ofNullable(userRepository.findByUserId(id));
 
         if(user.isEmpty()){
-            throw new ApiException(404, "User not found");
+            throw new UserException(404, "User not found");
         }
         User userDetail = user.get();
 

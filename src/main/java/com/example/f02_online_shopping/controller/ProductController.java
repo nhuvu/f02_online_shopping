@@ -19,12 +19,8 @@ public class ProductController {
     /** [F03] Xem danh sách các sản phẩm đang được bán. (ORM-1)
      * */
     @GetMapping(UrlConstant.PRODUCT_GET_IN_STOCK)
-    public ResponseEntity<Object> viewProductInStock(){
-        try{
-            return ResponseEntity.ok(productService.getInStockProductList());
-        }catch (ApiException e){
-            return ResponseEntity.status(e.getHttpCode()).body(e.getMessage());
-        }
+    public Object viewProductInStock(){
+        return productService.getInStockProductList();
     }
 
 }

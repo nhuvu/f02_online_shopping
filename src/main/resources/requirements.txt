@@ -7,9 +7,9 @@ I. Các chức năng của người dùng (user):
         [F02] Theo email & mật khẩu (ORM-1)
         [FXX] Theo google, facebook, ...
     3. [FO3] Xem danh sách các sản phẩm đang được bán. (ORM-1)
-    4. Thêm sản phẩm vào giỏ hàng (ORM-2)
-    5. Xem các sản phẩm có trong giỏ hàng (ORM-2)
-    6. Xóa các sản phẩm có trong giỏ hàng (ORM-2)
+    4. [F12] Thêm sản phẩm vào giỏ hàng (ORM-2)
+    5. [F13] Xem các sản phẩm có trong giỏ hàng (ORM-2)
+    6. [F14] Xóa các sản phẩm có trong giỏ hàng (ORM-2)
     7. Chọn và thanh toán các sản phẩm có trong giỏ hàng.
     8. Xem danh sách các đơn hàng (tìm kiếm theo mã đơn hàng, ...)
     9. Xem lịch sử của đơn hàng, cập nhật thông tin tên người nhận, sđt, địa chỉ trong đơn hàng,

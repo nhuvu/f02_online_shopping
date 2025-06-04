@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 
 @Repository
@@ -24,5 +25,5 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     int updateProductInfo(String name, String description, BigDecimal price, Integer stock, BigDecimal originalPrice, String category, Integer id);
 
     @Query(value="SELECT * FROM Products WHERE id = :id", nativeQuery = true)
-    Product findByProductId(Integer id);
+    Optional<Product> findByProductId(Integer id);
 }

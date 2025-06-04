@@ -9,7 +9,7 @@ import java.util.List;
 public interface UserService {
     void checkUserValidity(Integer id);
     //Register
-    UserResponseDto registerUser(UserRegisterRequestDto request);
+    UserResponseDto createUser(UserRegisterRequestDto request);
     //Login
     UserResponseDto login(UserLoginRequestDto request);
     //View user list
