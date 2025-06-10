@@ -51,7 +51,9 @@ This project is built as part of the **Fundamentals of Backend Development** cou
 - Spring Boot
 - ORM (JPA/Hibernate)
 - MySQL
+- Microservices
 - JWT Authentication
+- Spring Security
 
 ## 🧪 Status
 🚧 Work In Progress...
